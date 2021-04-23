@@ -16,7 +16,7 @@ class Login extends Component {
   handleLogIn(e) {
     e.preventDefault();
 
-    const apiUrl = './php/login.php';
+    const apiUrl = pathString + '/login.php';
 	// https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md
 
     let email = this.refs.email.value;

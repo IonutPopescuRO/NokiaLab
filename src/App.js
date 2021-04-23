@@ -1,6 +1,8 @@
 import './style.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import pathString from './get_php_link.js';
+
 import Home from "./pages/auth/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
