@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+import pathString from '../../get_php_link.js';
  
 class Login extends Component {
   componentDidMount() {
