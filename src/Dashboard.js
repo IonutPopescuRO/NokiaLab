@@ -8,7 +8,8 @@ import Home from "./pages/dashboard/Home";
 import NotFound from "./pages/dashboard/NotFound";
 
 import TestGraphs from "./pages/dashboard/graphs/TestGraphs";
-
+import Notifications from "./pages/dashboard/Notifications";
+import ReactNotification from 'react-notifications-component';
 class Dashboard extends Component {
   
   render() {
@@ -38,7 +39,10 @@ class Dashboard extends Component {
 								<Route exact path="/dashboard" component={Home}/>
 								<Route path="/dashboard/test" component={Home}/>
 								<Route path="/dashboard/graphs" component={TestGraphs}/>
-								
+								<Route path="/dashboard/notifications">
+									<ReactNotification></ReactNotification>
+									<Notifications></Notifications>
+								</Route>
 								<Route component={NotFound}/>
 							</Switch>
 						</BrowserRouter>
