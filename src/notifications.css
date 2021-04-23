@@ -1,0 +1,41 @@
+.notifications-container {
+  margin-left: 200px;
+}
+.notifications-component {
+	position: relative!important;
+}
+.notifications-header {
+  font-family: "Montserrat", sans-serif;
+  padding: 20px;
+}
+
+.notification-item {
+  width: 70%;
+  height: 80px;
+  background-color: #e6e6fa;
+  margin-top: 30px;
+  -webkit-box-shadow: 2px 5px 10px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 5px 10px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 5px 10px -5px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.notification-text {
+  font-size: 24px;
+}
+
+.butoane-container {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+}
+
+.adauga-notificare {
+  background-color: #e6e6fa;
+  border-radius: 6px;
+  border-color: transparent;
+  margin-top: 20px;
+  height: 30px;
+  outline: none;
+}

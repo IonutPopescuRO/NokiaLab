@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { faHome, faChartLine, faUsersCog, faUserTie } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faChartLine, faUsersCog, faUserTie, faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Home from "./pages/dashboard/Home";
@@ -24,6 +24,7 @@ class Dashboard extends Component {
 					<ul className="menu">
 						<li><a href="/dashboard"><FontAwesomeIcon icon={faHome} /> Home</a></li>
 						<li><a href="/dashboard/graphs"><FontAwesomeIcon icon={faChartLine} /> Grafice</a></li>
+						<li><a href="/dashboard/notifications"><FontAwesomeIcon icon={faBell} /> Notificări</a></li>
 					</ul>
 				</div>
 				<div className="content">

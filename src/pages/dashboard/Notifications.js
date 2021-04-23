@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import '../../notifications.css'
 import Data from '../../comp/Data.js'
 import { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
@@ -69,11 +69,11 @@ export default class Notifications extends Component {
         return (
             <div className = "notifications-container">
                 <h1 className="notifications-header">Notificari</h1>
-                <h1 className="notification-text">{notificari}</h1>
+                {notificari}
                 <div className = "butoane-container">
-                 <button className = "adauga-notificare" onClick = {this.createNotification('success')}>Adauga confirmare</button>
-                <button className = "adauga-notificare"  onClick={this.createNotification('warning')}>Adauga atentionare</button>
-                <button className = "adauga-notificare"  onClick = {this.createNotification('danger')}>Adauga eroare</button>
+					<button className = "adauga-notificare" onClick = {this.createNotification('success')}>Adauga confirmare</button>
+					<button className = "adauga-notificare" onClick={this.createNotification('warning')}>Adauga atentionare</button>
+					<button className = "adauga-notificare" onClick = {this.createNotification('danger')}>Adauga eroare</button>
                </div>
             </div>
         )
