@@ -1,4 +1,5 @@
 import React from 'react';
+import pathString from '../get_php_link.js';
 
 class Stats extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Stats extends React.Component {
   }
 
   componentDidMount() {
-    const apiUrl = './php/total_accounts.php';
+    const apiUrl = pathString + '/total_accounts.php';
 	
     fetch(apiUrl)
       .then(res => res.json())

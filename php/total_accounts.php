@@ -1,4 +1,5 @@
 <?php
+	header('Access-Control-Allow-Origin: *');
 	include 'libs/conn.php';
 	
 	$stmt = $conn->prepare("SELECT COUNT(*) FROM [TEST].[TEAM3_ACCOUNTS]");

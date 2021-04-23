@@ -8,6 +8,8 @@ class Login extends Component {
   }
   constructor(props) {
     super(props);
+	this.email = React.createRef();
+	this.password = React.createRef();
     // the initial application state
     this.state = {
       status: null,
@@ -21,8 +23,8 @@ class Login extends Component {
     const apiUrl = pathString + '/login.php';
 	// https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md
 
-    let email = this.refs.email.value;
-    let password = this.refs.password.value;
+    let email = this.email.current.value;
+    let password = this.password.current.value;
 	
 	if(password.length > 3)
 	{
@@ -61,8 +63,8 @@ class Login extends Component {
 			
 			<div className="space-options"></div>
 			<form onSubmit={this.handleLogIn.bind(this)}>
-				<input ref="email" type="email" className="input" placeholder="exemplu@test.com" required/>
-				<input ref="password" type="password" className="input" placeholder="Parolă" minLength="4" required/>
+				<input ref={this.email} type="email" className="input" placeholder="exemplu@test.com" required/>
+				<input ref={this.password} type="password" className="input" placeholder="Parolă" minLength="4" required/>
 				<button type="submit" className="btn">Autentifică-mă!</button>
 			</form>
 			
