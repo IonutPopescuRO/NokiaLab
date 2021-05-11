@@ -149,9 +149,20 @@ a {
     -webkit-box-shadow: 0 0 5px 0 rgb(43 43 43 / 10%), 0 11px 6px -7px rgb(43 43 43 / 10%);
     box-shadow: 0 0 5px 0 rgb(43 43 43 / 10%), 0 11px 6px -7px rgb(43 43 43 / 10%);
 	position: relative;
-	display: flex;
-	padding: 15px
+	/*display: flex;*/
 }
+
+.Dashboard .box-mod h3 {
+    text-align: center;
+    border-bottom: 1px solid #d6d6d6a8;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+.Dashboard .box-mod graphContainer {
+    padding: 15px
+}
+
 .Dashboard .logo-dash {
 	padding-top: 10px;
     padding-bottom: 10px;
@@ -187,4 +198,108 @@ a {
 .Dashboard .header .user-info {
     float: right;
     padding: 25px;
+}
+.Dashboard .btn-small {
+    background-color: #c91515;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 0 2px;
+    cursor: pointer;
+    padding: 6px 24px;
+}
+
+.Dashboard .btn-small-on {
+    background-color: #4CAF50;
+}
+
+.Dashboard .actions {
+    display: block;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 59% 40%;
+    grid-gap: 10px;
+}
+
+.actions-container {
+    display: grid;
+    grid-template-columns: 15% 15% 25% 45%;
+    grid-gap: 10px;
+    padding-left: 20px;
+    padding-bottom: 15px;
+}
+
+.react-datepicker-wrapper input {
+    padding-left: 10px;
+    height: 25px;
+    border-radius: 0;
+    border: 1px solid black;
+}
+
+.calendar-icon {
+    display: inline-block;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 6px;
+}
+.react-datepicker__tab-loop {
+    display: inline-block;
+}
+.Dashboard .box-mod-actions {
+	background-color: #fff;
+	border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px 0 rgb(43 43 43 / 10%), 0 11px 6px -7px rgb(43 43 43 / 10%);
+    box-shadow: 0 0 5px 0 rgb(43 43 43 / 10%), 0 11px 6px -7px rgb(43 43 43 / 10%);
+	position: relative;
+	/*display: flex;*/
+}
+
+.Dashboard .box-mod-actions h3 {
+    text-align: left;
+    border-bottom: 1px solid #d6d6d6a8;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 13px;
+    padding-left: 20px;
+}
+.big-table {
+    padding: 0 25px 1px 25px;
+}
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: #124191;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #124191;
+}
+
+.data-table h3 {
+    padding-top: 10px;
 }
