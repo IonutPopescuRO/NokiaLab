@@ -23,7 +23,7 @@ export const data_pie = {
 }
 
 export const data_bar = {
-    labels: ['Pending', 'Resolved', 'Closed', 'Assigned', 'In progress', 'Cancelled'],
+    labels: ['Desemnate', 'În progres', 'În așteptate', 'Anulate', 'Închise', 'Rezolvate'],
     datasets: [
         {
             label: ['# Incidente'],
@@ -48,6 +48,6 @@ export const data_bar = {
         },
     ],
 };
-
+export const status_order = {'Assigned': 0, 'In progress': 1, 'Pending': 2, 'Cancelled': 3, 'Closed': 4, 'Resolved': 5};
 export const months = ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'];
 export const days = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă', 'Duminică'];

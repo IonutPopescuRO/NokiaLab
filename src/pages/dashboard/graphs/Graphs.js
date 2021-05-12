@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Line, Pie, Bar } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
 import pathString from '../../../get_php_link.js';
-import { data_pie, data_bar } from '../../../comp/Constants';
+import { data_pie, data_bar, status_order } from '../../../comp/Constants';
 
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,7 +26,8 @@ class Graphs extends Component {
       error: null,
       btns: [null, false, false, true],
       btn_active: 1,
-      incidents: []
+      incidents: [],
+      incident_type: 0
     }
   }
 
@@ -59,11 +60,11 @@ class Graphs extends Component {
         .then(
           (result) => {
             data_pie.datasets[0].data = result.incidents_stats.map(x => (x.COUNT));
-            this.chart2.chartInstance.update();
+            this.pie_chart.chartInstance.update();
 
             data_bar.labels = result.status_list.map(x => (x.STATUS));
             data_bar.datasets[0].data = result.status_list.map(x => (x.COUNT));
-            this.chart3.chartInstance.update();
+            this.bar_chart.chartInstance.update();
             if (this.state.btn_active != 1)
               this.setState({
                 startDate: new Date(result.date.start),
@@ -97,12 +98,13 @@ class Graphs extends Component {
       .then(
         (result) => {
           data_pie.datasets[0].data = result.incidents_stats.map(x => (x.COUNT));
-          this.chart2.chartInstance.update();
+          this.pie_chart.chartInstance.update();
 
-
-          data_bar.labels = result.status_list.map(x => (x.STATUS));
-          data_bar.datasets[0].data = result.status_list.map(x => (x.COUNT));
-          this.chart3.chartInstance.update();
+          data_bar.datasets[0].data = [];
+          Object.values(result.status_list).forEach(val => {
+            data_bar.datasets[0].data[status_order[val.STATUS]] = val.COUNT;
+          });
+          this.bar_chart.chartInstance.update();
         },
         (error) => {
           this.setState({ error });
@@ -180,13 +182,13 @@ class Graphs extends Component {
           <div className="box-mod">
             <h3>Statistica incidentelor</h3>
             <div className="graphContainer" style={{ "maxWidth": "720px" }}>
-              <Bar ref={(reference) => this.chart3 = reference} redraw={true} data={data_bar} width={400} height={400} options={{ maintainAspectRatio: false, plugins: { labels: { render: 'value' } }, onClick: function (evt, element) { if (element.length > 0) { var ind = element[0]._index; alert(ind); } } }} />
+              <Bar ref={(reference) => this.bar_chart = reference} redraw={true} data={data_bar} width={400} height={400} options={{ maintainAspectRatio: false, legend: { display: false }, plugins: { labels: { render: 'value' } }, onClick: function (evt, element) { if (element.length > 0) { var ind = element[0]._index; alert(ind); } } }} />
             </div>
           </div>
           <div className="box-mod">
             <h3>Incidente nerezolvate</h3>
             <div className="graphContainer">
-              <Pie ref={(reference) => this.chart2 = reference} redraw={true} data={data_pie} width={400} height={400} options={{ maintainAspectRatio: false, title: { display: true, text: 'Prioritate:' }, onClick: function (evt, element) { if (element.length > 0) { var ind = element[0]._index; getTable(ind); } }, plugins: { labels: { render: 'value', fontColor: '#ffffff', fontSize: 12 } } }} />
+              <Pie ref={(reference) => this.pie_chart = reference} redraw={true} data={data_pie} width={400} height={400} options={{ maintainAspectRatio: false, title: { display: true, text: 'Prioritate:' }, onClick: function (evt, element) { if (element.length > 0) { var ind = element[0]._index; getTable(ind); } }, plugins: { labels: { render: 'value', fontColor: '#ffffff', fontSize: 12 } } }} />
             </div>
           </div>
         </div>
