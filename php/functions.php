@@ -14,9 +14,9 @@
 			case 4:
 				$start = date('Y-m-d', strtotime('first day of january this year'));
 				break;
-
-			return ['start' => $start, 'end' => date("Y-m-d", $d)];
 		}
+
+		return ['start' => $start, 'end' => date("Y-m-d", $d)];
 	}
 
 	function get_unsolved_incidents($type, $start=null, $end=null) {

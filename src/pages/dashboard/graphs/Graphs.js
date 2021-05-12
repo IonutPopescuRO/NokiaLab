@@ -42,7 +42,7 @@ class Graphs extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.btn_active !== this.state.btn_active || (this.state.btn_active == 4 && (prevState.startDate !== this.state.startDate || prevState.endDate !== this.state.endDate))) {
+    if (prevState.btn_active !== this.state.btn_active || (this.state.btn_active == 1 && (prevState.startDate !== this.state.startDate || prevState.endDate !== this.state.endDate))) {
       var form_data = new FormData();
       form_data.append('type', this.state.btn_active);
 
@@ -64,6 +64,11 @@ class Graphs extends Component {
             data_bar.labels = result.status_list.map(x => (x.STATUS));
             data_bar.datasets[0].data = result.status_list.map(x => (x.COUNT));
             this.chart3.chartInstance.update();
+            if (this.state.btn_active != 1)
+              this.setState({
+                startDate: new Date(result.date.start),
+                endDate: new Date(result.date.end)
+              });
           },
           (error) => {
             this.setState({ error });
