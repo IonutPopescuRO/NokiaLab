@@ -12,7 +12,7 @@ class Stats extends React.Component {
 
   componentDidMount() {
     const apiUrl = pathString + '/total_accounts.php';
-	
+
     fetch(apiUrl)
       .then(res => res.json())
       .then(
@@ -28,14 +28,14 @@ class Stats extends React.Component {
   }
 
   render() {
-    const { error, accounts} = this.state;
-	
-    if(error) {
+    const { error, accounts } = this.state;
+
+    if (error) {
       return (
         <div>Error: {error.message}</div>
       )
     } else {
-      return(accounts)
+      return (accounts)
     }
   }
 }

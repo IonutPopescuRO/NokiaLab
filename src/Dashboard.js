@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Home from "./pages/dashboard/Home";
 import NotFound from "./pages/dashboard/NotFound";
 
-import TestGraphs from "./pages/dashboard/graphs/TestGraphs";
+import Graphs from "./pages/dashboard/graphs/Graphs";
 import Notifications from "./pages/dashboard/Notifications";
 import ReactNotification from 'react-notifications-component';
 class Dashboard extends Component {
@@ -39,7 +39,7 @@ class Dashboard extends Component {
 							<Switch>
 								<Route exact path="/dashboard" component={Home}/>
 								<Route path="/dashboard/test" component={Home}/>
-								<Route path="/dashboard/graphs" component={TestGraphs}/>
+								<Route path="/dashboard/graphs" component={Graphs}/>
 								<Route path="/dashboard/notifications">
 									<ReactNotification></ReactNotification>
 									<Notifications></Notifications>

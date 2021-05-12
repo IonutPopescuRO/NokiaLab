@@ -11,7 +11,7 @@
 	
 	if(in_array($type, [1,2,3,4]))
 	{
-		$result = ['status' => 1, 'type' => $type, 'incidents_stats' => get_unsolved_incidents($type, $start, $end), 'status_list' => get_status_list($type, $start, $end)];
+		$result = ['status' => 1, 'type' => $type, 'date' => get_date($type), 'incidents_stats' => get_unsolved_incidents($type, $start, $end), 'status_list' => get_status_list($type, $start, $end)];
 	} else if($type==5)
 	{
 		$priority = isset($_POST['priority']) ? $_POST['priority'] : 0;

@@ -1,4 +1,24 @@
 <?php
+	function get_date($type)
+	{
+		$d = strtotime("today");
+		$start = null;
+
+		switch ($type) {
+			case 2:
+				$start = date("Y-m-d", strtotime("last monday midnight", $d));
+				break;
+			case 3:
+				$start = date("Y-m-d", strtotime("first day of this month", $d));
+				break;
+			case 4:
+				$start = date('Y-m-d', strtotime('first day of january this year'));
+				break;
+
+			return ['start' => $start, 'end' => date("Y-m-d", $d)];
+		}
+	}
+
 	function get_unsolved_incidents($type, $start=null, $end=null) {
 		global $conn;
 		$cases = [ //1 = last week, 2 = last month, 3 = last year
