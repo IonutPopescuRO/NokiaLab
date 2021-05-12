@@ -1,23 +1,23 @@
 export const data_pie = {
     labels: [
-        'Scăzută',
-        'Normală',
+        'Ridicată',
         'Medie',
-        'Ridicată'
+        'Normală',
+        'Scăzută'
     ],
     datasets: [{
         data: [0, 0, 0, 0],
         backgroundColor: [
-            '#FFCE56',
-            '#FF6384',
-            '#36A2EB',
-            '#66CD00'
+            '#FF4136',
+            '#FF851B',
+            '#0074D9',
+            '#7FDBFF'
         ],
         hoverBackgroundColor: [
-            '#FFCE56',
-            '#FF6384',
-            '#36A2EB',
-            '#66CD00'
+            '#FF4136',
+            '#FF851B',
+            '#0074D9',
+            '#7FDBFF'
         ]
     }]
 }
