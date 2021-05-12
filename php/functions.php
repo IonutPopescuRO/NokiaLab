@@ -19,7 +19,7 @@
 		return ['start' => $start, 'end' => date("Y-m-d", $d)];
 	}
 
-	function get_unsolved_incidents($type, $start=null, $end=null) {
+	function get_incidents_by_status($type, $status=null, $start=null, $end=null) {
 		global $conn;
 		$cases = [ //1 = last week, 2 = last month, 3 = last year
 			1 => 'DATEPART(year, GETDATE()) = DATEPART(year, [SUBMIT_DATE]) AND DATEPART(month, GETDATE()) = DATEPART(month, [SUBMIT_DATE])',
@@ -27,18 +27,23 @@
 			3 => 'DATEPART(year, GETDATE()) = DATEPART(year, [SUBMIT_DATE]) AND DATEPART(month, GETDATE()) = DATEPART(month, [SUBMIT_DATE])',
 			4 => 'DATEPART(year, [SUBMIT_DATE]) = 2021',
 		];
+
+		$status_query = "[STATUS]!='Resolved'";
+		if($status!=null)
+			$status_query = "[STATUS]='".$status."'";
+
 		if(!$start && !$end)
 		{
 			$stmt = $conn->query("SELECT [PRIORITY], Count(*) AS COUNT
 								FROM [TEST].[TEAM3_INCIDENTS] WITH(NOLOCK)
-								WHERE [STATUS]!='Resolved' 
+								WHERE ".$status_query." 
 								AND ".$cases[$type]."
 								GROUP BY [PRIORITY]
 								ORDER BY [PRIORITY] ASC");
 		} else {
 			$stmt = $conn->prepare("SELECT [PRIORITY], Count(*) AS COUNT
 								FROM [TEST].[TEAM3_INCIDENTS] WITH(NOLOCK)
-								WHERE [STATUS]!='Resolved' AND [SUBMIT_DATE] BETWEEN :start AND :end
+								WHERE ".$status_query." AND [SUBMIT_DATE] BETWEEN DateAdd(DAY, 1, :start) AND :end
 								GROUP BY [PRIORITY]
 								ORDER BY [PRIORITY] ASC");
 			$stmt->bindparam(":start", $start);
@@ -68,7 +73,7 @@
 		} else {
 			$stmt = $conn->prepare("SELECT [STATUS], Count(*) AS COUNT
 								FROM [TEST].[TEAM3_INCIDENTS] WITH(NOLOCK)
-								where [SUBMIT_DATE] BETWEEN :start AND :end
+								where [SUBMIT_DATE] BETWEEN DateAdd(DAY, 1, :start) AND :end
 								GROUP BY [STATUS]
 								ORDER BY [STATUS] ASC");
 			$stmt->bindparam(":start", $start);
@@ -80,21 +85,25 @@
 		return $result;
 	}
 	
-	function get_status_list_table($priority, $start=null, $end=null) {
+	function get_status_list_table($priority, $status=null, $start=null, $end=null) {
 		global $conn;
+
+		$status_query = "[STATUS]!='Resolved'";
+		if($status!=null)
+			$status_query = "[STATUS]='".$status."'";
 		
 		if(!$start && !$end)
 		{
 			$stmt = $conn->prepare("SELECT [INCIDENT_NUMBER], [STATUS], [SUBMIT_DATE], [CAT_TIER_1]
 								FROM [TEST].[TEAM3_INCIDENTS]
-								WHERE priority = :priority AND DATEPART(year, GETDATE()) = DATEPART(year, [SUBMIT_DATE])
+								WHERE priority = :priority AND ".$status_query." AND DATEPART(year, GETDATE()) = DATEPART(year, [SUBMIT_DATE])
 								AND DATEPART(month, GETDATE()) = DATEPART(month, [SUBMIT_DATE])
 								ORDER BY [SUBMIT_DATE] ASC");
 			$stmt->bindparam(":priority", $priority);
 		} else {
 			$stmt = $conn->prepare("SELECT [INCIDENT_NUMBER], [STATUS], [SUBMIT_DATE], [CAT_TIER_1]
 								FROM [TEST].[TEAM3_INCIDENTS]
-								WHERE priority = :priority AND [SUBMIT_DATE] BETWEEN :start AND :end
+								WHERE priority = :priority AND ".$status_query." AND [SUBMIT_DATE] BETWEEN DateAdd(DAY, 1, :start) AND :end
 								ORDER BY [SUBMIT_DATE] ASC");
 			$stmt->bindparam(":priority", $priority);
 			$stmt->bindparam(":start", $start);

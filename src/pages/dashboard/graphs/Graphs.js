@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Line, Pie, Bar } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
 import pathString from '../../../get_php_link.js';
-import { data_pie, data_bar, status_order } from '../../../comp/Constants';
+import { data_pie, data_bar, status_order, statuses } from '../../../comp/Constants';
 
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,6 +19,7 @@ class Graphs extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.getTable = this.getTable.bind(this);
+    this.updatePieChart = this.updatePieChart.bind(this);
     this.refTable = React.createRef()
     this.state = {
       startDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
@@ -27,7 +28,8 @@ class Graphs extends Component {
       btns: [null, false, false, true],
       btn_active: 1,
       incidents: [],
-      incident_type: 0
+      incident_type: null,
+      incidents_title: 'nerezolvate'
     }
   }
 
@@ -75,6 +77,7 @@ class Graphs extends Component {
             this.setState({ error });
           }
         )
+      this.setState({ incident_type: null, incidents_title: 'nerezolvate' });
     }
   }
 
@@ -112,10 +115,38 @@ class Graphs extends Component {
       )
   }
 
+  updatePieChart(id) {
+    this.setState({ incident_type: id, incidents_title: statuses[id].toString().toLowerCase() });
+
+    var form_data = new FormData();
+    form_data.append('type', 6);
+    form_data.append('status', id);
+    form_data.append('start', this.state.startDate.toJSON().slice(0, 10));
+    form_data.append('end', this.state.endDate.toJSON().slice(0, 10));
+
+    const requestOptions = {
+      method: 'POST',
+      body: form_data
+    };
+    fetch(apiUrl, requestOptions)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          data_pie.datasets[0].data = result.incidents_stats.map(x => (x.COUNT));
+          this.pie_chart.chartInstance.update();
+        },
+        (error) => {
+          this.setState({ error });
+        }
+      )
+  }
+
   getTable(id) {
     var form_data = new FormData();
     form_data.append('type', 5);
     form_data.append('priority', id);
+    if (this.state.incident_type !== null)
+      form_data.append('incident_type', this.state.incident_type);
     form_data.append('start', this.state.startDate.toJSON().slice(0, 10));
     form_data.append('end', this.state.endDate.toJSON().slice(0, 10));
     const requestOptions = {
@@ -143,7 +174,7 @@ class Graphs extends Component {
 
   render() {
     const { startDate, endDate, incidents } = this.state;
-    const { getTable } = this
+    const { getTable, updatePieChart } = this
 
     return (
       <div className="sub-page">
@@ -182,11 +213,11 @@ class Graphs extends Component {
           <div className="box-mod">
             <h3>Statistica incidentelor</h3>
             <div className="graphContainer" style={{ "maxWidth": "720px" }}>
-              <Bar ref={(reference) => this.bar_chart = reference} redraw={true} data={data_bar} width={400} height={400} options={{ maintainAspectRatio: false, legend: { display: false }, plugins: { labels: { render: 'value' } }, onClick: function (evt, element) { if (element.length > 0) { var ind = element[0]._index; alert(ind); } } }} />
+              <Bar ref={(reference) => this.bar_chart = reference} redraw={true} data={data_bar} width={400} height={400} options={{ maintainAspectRatio: false, legend: { display: false }, plugins: { labels: { render: 'value' } }, onClick: function (evt, element) { if (element.length > 0) { var ind = element[0]._index; updatePieChart(ind); } } }} />
             </div>
           </div>
           <div className="box-mod">
-            <h3>Incidente nerezolvate</h3>
+            <h3>Incidente {this.state.incidents_title}</h3>
             <div className="graphContainer">
               <Pie ref={(reference) => this.pie_chart = reference} redraw={true} data={data_pie} width={400} height={400} options={{ maintainAspectRatio: false, title: { display: true, text: 'Prioritate:' }, onClick: function (evt, element) { if (element.length > 0) { var ind = element[0]._index; getTable(ind); } }, plugins: { labels: { render: 'value', fontColor: '#ffffff', fontSize: 12 } } }} />
             </div>

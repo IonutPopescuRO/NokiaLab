@@ -21,9 +21,9 @@ export const data_pie = {
         ]
     }]
 }
-
+export const statuses = ['Desemnate', 'În progres', 'În așteptate', 'Anulate', 'Închise', 'Rezolvate'];
 export const data_bar = {
-    labels: ['Desemnate', 'În progres', 'În așteptate', 'Anulate', 'Închise', 'Rezolvate'],
+    labels: statuses,
     datasets: [
         {
             label: ['# Incidente'],
