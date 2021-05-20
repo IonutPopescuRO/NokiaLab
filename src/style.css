@@ -201,6 +201,7 @@ a {
 }
 .Dashboard .btn-small {
     background-color: #c91515;
+    opacity: 0.6;
     border: none;
     color: white;
     text-align: center;
@@ -213,7 +214,12 @@ a {
 }
 
 .Dashboard .btn-small-on {
-    background-color: #4CAF50;
+    background-color: #2462ca;
+    opacity: 1;
+}
+
+.Dashboard .btn-small-info {
+    background-color: #2462ca;
 }
 
 .Dashboard .actions {
@@ -301,5 +307,9 @@ a {
 }
 
 .data-table h3 {
+    padding-top: 10px;
+}
+
+.big-graph h3 {
     padding-top: 10px;
 }
